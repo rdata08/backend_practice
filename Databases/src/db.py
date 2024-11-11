@@ -58,11 +58,10 @@ class DatabaseDriver(object):
     def delete_user_by_id(self, id):
         self.conn.execute("""DELETE FROM user WHERE id=?""", (id,))
 
-    def update_user_balance_by_id(self, new_balance, id):
+    def update_user_balance_by_id(self, new_balance, user_id):
         self.conn.execute("""
-        UPDATE user SET balance = ?,
-        WHERE id = ?
-        """, (new_balance, id))
+        UPDATE user SET balance = ?
+        WHERE id = ?""", (new_balance, user_id))
         self.conn.commit()
         
         

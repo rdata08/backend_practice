@@ -67,10 +67,11 @@ def send_money():
 
     initial_receiver_balance = receiver["balance"]
     new_receiver_balance = initial_receiver_balance + amount
-
+    
     DB.update_user_balance_by_id(new_sender_balance, sender_id)
-    receiver_info = DB.update_user_balance_by_id(new_receiver_balance, receiver_id)
-    return 
+    DB.update_user_balance_by_id(new_receiver_balance, receiver_id)
+
+    return json.dumps(body), 200
 
 
 
