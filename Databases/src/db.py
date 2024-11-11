@@ -39,20 +39,33 @@ class DatabaseDriver(object):
         cursor = self.conn.execute("SELECT * FROM user;")
         tasks = []
         for row in cursor:
-            tasks.append({"id": row[0], "name": row[1], "username": row[2], "balance": row[3]})
+            tasks.append({"id": row[0], "name": row[1], "username": row[2]})
         return tasks
 
     def insert_user_table(self, name, username, balance):
         cursor = self.conn.execute("""
-        INSERT INTO user(name, username, balance) VALUES (?, ?);
+        INSERT INTO user(name, username, balance) VALUES (?, ?, ?);
         """, (name, username, balance))
         self.conn.commit()
         return cursor.lastrowid
-    
 
+    def get_user_by_id(self, user_id):
+        cursor = self.conn.execute("SELECT * FROM user WHERE id = ?;", (user_id,))
+        for row in cursor:
+            return ({"id": row[0], "name": row[1], "username": row[2], "balance": row[3]})
+        return None
 
+    def delete_user_by_id(self, id):
+        self.conn.execute("""DELETE FROM user WHERE id=?""", (id,))
 
-
+    def update_user_balance_by_id(self, new_balance, id):
+        self.conn.execute("""
+        UPDATE user SET balance = ?,
+        WHERE id = ?
+        """, (new_balance, id))
+        self.conn.commit()
+        
+        
 
 # Only <=1 instance of the database driver
 # exists within the app at all times
