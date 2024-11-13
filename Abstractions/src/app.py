@@ -12,8 +12,37 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+@app.route("/api/courses/")
+def get_courses():
+    pass
 
-# your routes here
+@app.route("/api/course/", methods=["POST"])
+def create_course():
+    pass
+
+@app.route("/api/courses/<int:course_id>/")
+def get_course():
+    pass
+
+@app.route("/api/courses/<int:course_id>/", methods=["DELETE"])
+def delete_course():
+    pass
+
+@app.route("/api/users/", methods=["POST"])
+def create_user():
+    pass
+
+@app.route("/api/users/<int:user_id>/")
+def get_user():
+    pass
+
+@app.route("/api/courses/<int:course_id>/add/", methods=["POST"])
+def add_user_to_course():
+    pass
+
+@app.route("/api/courses/<int:course_id>/assignment/", methods=["POST"])
+def create_assignment():
+    pass
 
 
 if __name__ == "__main__":
