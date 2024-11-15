@@ -1,5 +1,6 @@
 from db import db
 from flask import Flask
+import json
 
 app = Flask(__name__)
 db_filename = "cms.db"
@@ -44,6 +45,11 @@ def add_user_to_course():
 def create_assignment():
     pass
 
+def success_response(data, code = 200):
+    return json.dumps(data), code
+
+def failure_response(message, code = 400):
+    return json.dumps({"error": message}), code
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
